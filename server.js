@@ -42,7 +42,7 @@ app.get('/dummy', (req, res) => {
 });
 
 //login
-app.post('/api/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   pool.getConnection(function (err, connection) {
     if (err) {
@@ -103,7 +103,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 //signup
-app.post('/api/signup', async (req, res) => {
+app.post('/signup', async (req, res) => {
   const { username, password, email } = req.body;
   const encryptedPassword = await bcrypt.hash(password, saltRounds)
   const signUpDate = new Date().toJSON().slice(0, 10);
@@ -142,7 +142,7 @@ app.post('/api/signup', async (req, res) => {
 
 
 //refresh token
-app.post('/api/refresh', async (req, res) => {
+app.post('/refresh', async (req, res) => {
   const { uid, rToken } = req.body;
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
     accessToken = req.headers.authorization.split(' ')[1];
@@ -220,7 +220,7 @@ app.post('/api/refresh', async (req, res) => {
 });
 
 //chart3
-app.get('/api/budget/dashboard/chart3/:id', jwtMW, (req, res) => {
+app.get('/budget/dashboard/chart3/:id', jwtMW, (req, res) => {
   let id = req.params.id;
   pool.getConnection(function (err, connection) {
     if (err) {
@@ -263,7 +263,7 @@ app.get('/api/budget/dashboard/chart3/:id', jwtMW, (req, res) => {
 });
 
 //chart1
-app.get('/api/budget/dashboard/chart1/:id', jwtMW, (req, res) => {
+app.get('/budget/dashboard/chart1/:id', jwtMW, (req, res) => {
   let id = req.params.id;
   pool.getConnection(function (err, connection) {
     if (err) {
@@ -306,7 +306,7 @@ app.get('/api/budget/dashboard/chart1/:id', jwtMW, (req, res) => {
 });
 
 //chart2
-app.get('/api/budget/dashboard/chart2/:id', jwtMW, (req, res) => {
+app.get('/budget/dashboard/chart2/:id', jwtMW, (req, res) => {
   let id = req.params.id;
   pool.getConnection(function (err, connection) {
     if (err) {
@@ -349,7 +349,7 @@ app.get('/api/budget/dashboard/chart2/:id', jwtMW, (req, res) => {
 });
 
 //get all budget records for user
-app.get('/api/budget/all/:id', jwtMW, (req, res) => {
+app.get('/budget/all/:id', jwtMW, (req, res) => {
   let id = req.params.id;
   pool.getConnection(function (err, connection) {
     if (err) {
@@ -390,7 +390,7 @@ app.get('/api/budget/all/:id', jwtMW, (req, res) => {
 });
 
 //add budget record for user
-app.post('/api/budget/add', jwtMW, (req, res) => {
+app.post('/budget/add', jwtMW, (req, res) => {
   const { uid, categoryName, value, date } = req.body;
   const entryDate = new Date(date).toJSON().slice(0, 10);
   var budget = {
@@ -428,7 +428,7 @@ app.post('/api/budget/add', jwtMW, (req, res) => {
 });
 
 //add income for user
-app.post('/api/income/add', jwtMW, (req, res) => {
+app.post('/income/add', jwtMW, (req, res) => {
   const { uid, monthlyIncome } = req.body;
   var income = {
     "uid": uid,
@@ -463,7 +463,7 @@ app.post('/api/income/add', jwtMW, (req, res) => {
 });
 
 //add budget category for user
-app.post('/api/budget/config', jwtMW, (req, res) => {
+app.post('/budget/config', jwtMW, (req, res) => {
   const { uid, categoryName } = req.body;
   var category = {
     "uid": uid,
@@ -497,7 +497,7 @@ app.post('/api/budget/config', jwtMW, (req, res) => {
 });
 
 // get all budget category for user
-app.get('/api/budget/category/:id', jwtMW, (req, res) => {
+app.get('/budget/category/:id', jwtMW, (req, res) => {
   let id = req.params.id;
   pool.getConnection(function (err, connection) {
     if (err) {
@@ -536,7 +536,7 @@ app.get('/api/budget/category/:id', jwtMW, (req, res) => {
 });
 
 // get  income for user
-app.get('/api/income/:id', jwtMW, (req, res) => {
+app.get('/income/:id', jwtMW, (req, res) => {
   let id = req.params.id;
   pool.getConnection(function (err, connection) {
     if (err) {
