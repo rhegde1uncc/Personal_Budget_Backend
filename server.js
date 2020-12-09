@@ -37,6 +37,10 @@ var pool = mysql.createPool({
   database: 'sql9373689'
 });
 
+app.get('/dummy', (req, res) => {
+  res.send('Hello world');
+});
+
 //login
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
