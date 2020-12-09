@@ -9,7 +9,7 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
 
-const PORT = 3000;
+//const PORT = 3000;
 const aTokensecretKey = 'My super secret key';
 const rTokensecretKey = 'It is My refresh token secret key';
 const saltRounds = 10;
@@ -588,6 +588,6 @@ app.use(function (err, req, res, next) {
 
 })
 
-app.listen(PORT, () => {
-  console.log(`serving on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`serving on port ${PORT}`);
+// });
