@@ -19,7 +19,7 @@ let refreshToken;
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
-  res.setHeader('Content-Encoding', 'gzip');
+  //res.setHeader('Content-Encoding', 'gzip');
   next();
 });
 
