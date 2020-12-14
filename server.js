@@ -8,6 +8,7 @@ const mysql = require('mysql');
 
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
+var compression = require('compression');
 
 //const PORT = 3000;
 const aTokensecretKey = 'My super secret key';
@@ -19,9 +20,26 @@ let refreshToken;
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
-  //res.setHeader('Content-Encoding', 'gzip');
   next();
 });
+
+const shouldCompress = (req, res) => {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses if this request header is present
+    return false;
+  }
+
+  // fallback to standard compression
+  return compression.filter(req, res);
+};
+app.use(compression({
+  // filter decides if the response should be compressed or not,
+  // based on the `shouldCompress` function above
+  filter: shouldCompress,
+  // threshold is the byte threshold for the response body size
+  // before compression is considered, the default is 1kb
+  threshold: 0
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
